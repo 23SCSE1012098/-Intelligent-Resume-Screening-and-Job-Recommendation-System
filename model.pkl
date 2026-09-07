@@ -1,1 +1,24 @@
+# Model Prediction Section ki jagah ye Code istemal karein:
+st.markdown("---")
+st.subheader("Resume Screening Result")
 
+keywords_map = {
+    "Data Scientist / ML Engineer": ["python", "machine learning", "pandas", "scikit-learn", "deep learning", "sql"],
+    "Web Developer": ["html", "css", "javascript", "react", "node", "django"],
+    "Software Engineer": ["java", "c++", "data structures", "algorithms", "git"],
+    "HR / Recruitment": ["recruitment", "hiring", "sourcing", "payroll", "employee engagement"]
+}
+
+detected_skills = []
+matched_category = "General / Other"
+
+text_lower = cleaned_text.lower()
+
+for category, skills in keywords_map.items():
+    matches = [skill for skill in skills if skill in text_lower]
+    if matches:
+        detected_skills.extend(matches)
+        matched_category = category
+
+st.info(f"**Predicted Category / Recommendation:** {matched_category}")
+st.write(f"**Detected Skills:** {', '.join(set(detected_skills)) if detected_skills else 'No specific keywords matched.'}")
